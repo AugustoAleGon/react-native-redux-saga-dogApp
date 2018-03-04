@@ -10,12 +10,13 @@ import styles from './Styles/LoginScreenStyle'
 
 class LoginScreen extends Component {
   render () {
-    console.log('This are my props! :', this)
     return (
       <View style={styles.loginWrapper}>
         <DogForm
+          placeholderTextColor={'black'}
           placeholder='Username' />
         <DogForm
+          placeholderTextColor={'black'}
           placeholder='Password' />
         <View style={styles.loginButtonWrapper}>
           <TouchableOpacity

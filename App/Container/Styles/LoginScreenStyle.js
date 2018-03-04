@@ -4,7 +4,8 @@ import { Colors } from '../../Themes'
 export default StyleSheet.create({
   loginWrapper: {
     flex: 1,
-    paddingTop: 20
+    paddingTop: 20,
+    backgroundColor: 'white'
   },
   textInputContainer: {
     height: 30,

@@ -9,6 +9,8 @@ const primaryScreens = StackNavigator({
   Home: {
     screen: HomeScreen
   }
+}, {
+  headerMode: 'none'
 })
 
 export default primaryScreens
