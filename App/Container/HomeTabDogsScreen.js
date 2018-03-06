@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native'
-
+import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
 import {
   DeckSwiper,
   Text,
@@ -19,6 +20,8 @@ import {
 // Style of the component
 import styles from './Styles/HomeTabDogsScreenStyle'
 
+// Actions that are needed in for fetching the data.
+import dogActions from '../Redux/Reducers/dog'
 // The purpose of this is the variable is to test the swiper
 // Which is actually pretty cool right?
 const testCards = [
@@ -33,6 +36,17 @@ const testCards = [
 ]
 
 class HomeTabDogsScreen extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      listBreeds : [],
+      currentDog : []
+    }
+  }
+  componentDidMount () {
+    this.props.getAllBreed()
+    console.log('This is my list: ', this.props)
+  }
   render () {
     return (
       <View style={styles.homeTabMyDogsContainer}>
@@ -72,4 +86,18 @@ class HomeTabDogsScreen extends Component {
   }
 }
 
-export default HomeTabDogsScreen
+const mapStateToProps = (state, props) => {
+  return {
+    dogList: state.dog.dogList,
+    randomPic: state.dog.randomPic
+  }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+    getAllBreed: bindActionCreators(dogActions.getAllListBreed, dispatch),
+    getRandomPicture: bindActionCreators(dogActions.getRandomPic, dispatch)
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeTabDogsScreen)

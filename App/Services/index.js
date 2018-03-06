@@ -3,4 +3,4 @@
 */
 
 export const getAllListBreed = require('./Modules/dogServices').getAllListBreed
-export const getRandomPic = require('./Modules/dogServices/dogServices').getRandomPic
+export const getRandomPic = require('./Modules/dogServices').getRandomPic

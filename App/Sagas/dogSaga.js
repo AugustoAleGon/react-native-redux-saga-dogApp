@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects'
 import {
   getAllListBreed as getAllListBreedRequest,
   getRandomPic as getRandomPicRequest
-} from '../../Services'
+} from '../Services'
 import dogActions from '../Redux/Reducers/dog'
 
 export function * getAllListBreed (action) {

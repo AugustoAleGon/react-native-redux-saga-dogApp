@@ -8,7 +8,7 @@ import sagaPlugin from 'reactotron-redux-saga'
 if (Config.useReactotron) {
   // https://github.com/infinitered/reactotron for more options!
   Reactotron
-    .configure({ name: 'Qrosity',
+    .configure({ name: 'DogApp',
       socketIoProperties: {
         reconnection: true,
         reconnectionDelay: 2000,

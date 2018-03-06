@@ -57,6 +57,4 @@ const create = (baseURL = 'https://dog.ceo/api/') => {
 }
 
 // let's return back our create method as the default.
-export default {
-  create
-}
+export default create()
