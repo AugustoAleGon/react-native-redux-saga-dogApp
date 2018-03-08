@@ -3,6 +3,7 @@ import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 import { reducer as formReducer } from 'redux-form'
 import { resettableReducer } from 'reduxsauce'
+import {reducer as nav} from './NavigationRedux'
 import {reducer as dog} from './Reducers/dog'
 import {reducer as auth} from './Reducers/auth'
 import { persistReducer } from 'redux-persist'
@@ -29,7 +30,7 @@ export default () => {
   const rootReducer = persistReducer(
     rootConfig,
     combineReducers({
-    //   form: formReducer,
+      nav: nav,
     // All my reducers are here:
       form: formReducer,
       dog: persistReducer(dogConfig, resettable(dog)),

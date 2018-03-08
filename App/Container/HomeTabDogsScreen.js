@@ -53,18 +53,18 @@ class HomeTabDogsScreen extends Component {
   }
   componentWillMount () {
     this.props.getAllBreed()
-    if (this.props.dogList.dogList) {
+    if( this.props.dogList.dogList){
       randomNumber = Math.floor(Math.random() * (this.props.dogList.dogList.length - 0)) + 0
+      this.setState({listBreeds: this.props.dogList.dogList})
+      let randomBreed = randomItemOfArray(this.props.dogList.dogList, randomNumber)
+      this.props.getRandomPicture(randomItemOfArray(this.props.dogList.dogList, randomNumber))
+      this.setState({
+        currentDog: {
+          breed: randomBreed,
+          image: this.props.randomPic.randomPic
+        }
+      })
     }
-    this.setState({listBreeds: this.props.dogList.dogList})
-    let randomBreed = randomItemOfArray(this.props.dogList.dogList, randomNumber)
-    this.props.getRandomPicture(randomItemOfArray(this.props.dogList.dogList, randomNumber))
-    this.setState({
-      currentDog: {
-        breed: randomBreed,
-        image: this.props.randomPic.randomPic
-      }
-    })
     // Function that pick a random picture and iterates
   }
 

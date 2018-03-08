@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 // Importing Actions to dispatch
 import StartupActions from '../Redux/StartupRedux'
-import AppNavigation from '../Navigation/AppNavigation'
+import ReduxNavigation from '../Navigation/ReduxNavigation'
 
 class RootContainer extends Component {
   componentDidMount () {
@@ -13,7 +13,7 @@ class RootContainer extends Component {
   render () {
     return (
       <Root>
-        <AppNavigation />
+        <ReduxNavigation />
       </Root>
     )
   }
