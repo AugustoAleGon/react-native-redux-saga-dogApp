@@ -18,7 +18,8 @@ export function * getAllListBreed (action) {
 
 export function * getRandomPic (action) {
   const { fetchedRandomPic, requestFailed } = dogActions
-  const responsePic = yield call(getRandomPicRequest, {})
+  const { payload } = action
+  let responsePic = yield call(getRandomPicRequest, payload)
   if (responsePic.ok) {
     const { data } = responsePic
     yield put(fetchedRandomPic({randomPic: data.message}))

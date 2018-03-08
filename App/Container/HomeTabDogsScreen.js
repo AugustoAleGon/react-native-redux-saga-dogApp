@@ -17,6 +17,8 @@ import {
   Icon
 } from 'native-base'
 
+import { randomItemOfArray } from '../Lib/Utils'
+
 // Style of the component
 import styles from './Styles/HomeTabDogsScreenStyle'
 
@@ -24,36 +26,62 @@ import styles from './Styles/HomeTabDogsScreenStyle'
 import dogActions from '../Redux/Reducers/dog'
 // The purpose of this is the variable is to test the swiper
 // Which is actually pretty cool right?
-const testCards = [
-  {
-    breed: 'Pitbull',
-    image: 'https://dog.ceo/api/img/pug/n02110958_16492.jpg'
-  },
-  {
-    breed: 'Weimaraner',
-    image: 'https://dog.ceo/api/img/weimaraner/n02092339_392.jpg'
-  }
-]
+// const testCards = [
+//   {
+//     breed: 'Pitbull',
+//     image: 'https://dog.ceo/api/img/pug/n02110958_16492.jpg'
+//   },
+//   {
+//     breed: 'Weimaraner',
+//     image: 'https://dog.ceo/api/img/weimaraner/n02092339_392.jpg'
+//   }
+// ]
+
+let randomNumber
 
 class HomeTabDogsScreen extends Component {
   constructor (props) {
     super(props)
+    this.removeItemOfArray = this.removeItemOfArray.bind(this)
     this.state = {
-      listBreeds : [],
-      currentDog : []
+      listBreeds: [],
+      currentDog: {
+        breed: '',
+        image: ''
+      }
     }
   }
-  componentDidMount () {
+  componentWillMount () {
     this.props.getAllBreed()
-    console.log('This is my list: ', this.props)
+    if (this.props.dogList.dogList) {
+      randomNumber = Math.floor(Math.random() * (this.props.dogList.dogList.length - 0)) + 0
+    }
+    this.setState({listBreeds: this.props.dogList.dogList})
+    let randomBreed = randomItemOfArray(this.props.dogList.dogList, randomNumber)
+    this.props.getRandomPicture(randomItemOfArray(this.props.dogList.dogList, randomNumber))
+    this.setState({
+      currentDog: {
+        breed: randomBreed,
+        image: this.props.randomPic.randomPic
+      }
+    })
+    // Function that pick a random picture and iterates
   }
+
+  // Remove one of the item of an array that are inmutable
+  removeItemOfArray (index) {
+    let arr = this.state.listBreeds
+    arr.splice(index, 1)
+    this.setState({listBreeds: arr})
+  }
+
   render () {
     return (
       <View style={styles.homeTabMyDogsContainer}>
         <DeckSwiper
           ref={(c) => { this._deckSwiper = c }}
-          dataSource={testCards}
-          renderEmpty={
+          dataSource={[this.state.currentDog]}
+          renderEmpty={() =>
             <View style={{ justifyContent: 'center' }}>
               <Text>There is nothing here :(</Text>
             </View>
@@ -75,7 +103,19 @@ class HomeTabDogsScreen extends Component {
           } />
         <View style={styles.buttonContainerWrapper}>
           <TouchableOpacity
-            onPress={() => this._deckSwiper._root.swipeLeft()}
+            onPress={() => {
+              this.removeItemOfArray(randomNumber)
+              randomNumber = Math.floor(Math.random() * (this.props.dogList.dogList.length - 0)) + 0
+              let randomBreed = randomItemOfArray(this.props.dogList.dogList, randomNumber)
+              this.props.getRandomPicture(randomItemOfArray(this.props.dogList.dogList, randomNumber))
+              this.setState({
+                currentDog: {
+                  breed: randomBreed,
+                  image: this.props.randomPic.randomPic
+                }
+              })
+              this._deckSwiper._root.swipeLeft()
+            }}
             style={styles.buttonWrapper}>
             <Text>Thats not my dog!</Text>
             <Icon name='arrow-forward' />
@@ -94,10 +134,10 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => {
-    return {
+  return {
     getAllBreed: bindActionCreators(dogActions.getAllListBreed, dispatch),
     getRandomPicture: bindActionCreators(dogActions.getRandomPic, dispatch)
-    }
   }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeTabDogsScreen)

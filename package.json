@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force",
     "devTools": "remotedev --hostname=localhost --port=8080 --realtime=true",
     "reverses": "adb reverse tcp:8080 tcp:8080 && adb reverse tcp:9090 tcp:9090 ",
     "devmenu": "adb shell input keyevent 82",
@@ -22,6 +23,7 @@
     "react-navigation": "^1.2.1",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
     "redux-persist": "^5.9.1",
     "redux-saga": "^0.16.0",
     "reduxsauce": "^0.7.0",

@@ -5,7 +5,7 @@ export const getAllListBreed = async () => {
   return api.get('breeds/list')
 }
 
-export const getRadomPic = async (param) => {
+export const getRandomPic = async (param) => {
   const {api} = apiObject
   return api.get('breed/' + param + '/images/random')
 }
